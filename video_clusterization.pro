@@ -1,5 +1,8 @@
-SOURCES += main.cpp \
-    custom_drawing.cpp
+SOURCES += \
+    main.cpp \
+    custom_drawing.cpp \
+    framequeue.cpp \
+    extendedframe.cpp
 TEMPLATE = app
 CONFIG += console c++11
 CONFIG -= app_bundle
@@ -101,4 +104,6 @@ win32 {
 
 HEADERS += \
     custom_drawing.hpp \
-    colors.hpp
+    colors.hpp \
+    framequeue.h \
+    extendedframe.h

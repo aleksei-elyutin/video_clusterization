@@ -24,7 +24,7 @@ public:
     /*
      * Отрисовывает X-метку с центром в точке, соответствующей
      * координатам переданной особой точки.
-     * TODO: не реализована!
+     * TODO: реализовать!
     */
     static int drawLineBetweenKeypoints (Mat& image, KeyPoint& Kpoint1, KeyPoint& Kpoint2, Scalar color);
 
