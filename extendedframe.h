@@ -10,19 +10,23 @@ using namespace cv;
 
 class extendedFrame
 {
-public:
+private:
     Mat frame; // Изображение
     vector <KeyPoint> frame_keypoints; // Вектор особых точек текущего кадра
     Mat frame_descriptors; // Дескрипторы особых точек текущего кадра
+    //Преобразовать двумерный массив в вектор одномерных массивов
+    //vector <Mat> - необходимо для последующего формирования
+    // и быстрого доступа к вектору "сильных" ОТ
+public:
 
-    extendedFrame();
+    /*Конструкторы*/
+    extendedFrame(); //
     extendedFrame(Mat &input, vector<KeyPoint> &keypoints, Mat &descriptors);
-    //getters:
+
+    /* Геттеры: */
     const Mat &getFrame();
     const Mat &getDescriptors();
     const vector <KeyPoint> &getKeypointVector ();
-
-    //setters:
 };
 
 #endif // EXTENDEDFRAME_H
