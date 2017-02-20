@@ -6,21 +6,31 @@ FrameQueue::FrameQueue()
 
 }
 
-int FrameQueue::match(uint32_t nf1, uint32_t nf2, vector<DMatch> &matches)
+void FrameQueue::move_queue(extendedFrame &f)
 {
-    if ( ( nf1>this->number_of_frames ) | ( nf2 > this->number_of_frames ) )
+    if (number_of_frames < max_frames)
     {
-        return -1;
+        queue.push_back(f);
+        number_of_frames++;
     }
-    extendedFrame tmp_frame1 = this-> queue.at(nf1);
-    extendedFrame tmp_frame2 = this-> queue.at(nf2);
-    this->matcher.match(tmp_frame1.getDescriptors(), tmp_frame2.getDescriptors(), matches);
+    else
+    {
+        queue.pop_front();
+        queue.push_back(f);
+    }
+
+}
+
+int FrameQueue::match(extendedFrame &f1, extendedFrame &f2, vector<DMatch> &matches)
+{
+   matcher.match (queue.back()->getDescriptors(), queue.back()->getDescriptors() );
+
 }
 
 int FrameQueue::setMaxFrames(uint32_t num)
 {
     if (num>0){
-        this->max_frames = num;
+        max_frames = num;
         return 1;
     }
     else

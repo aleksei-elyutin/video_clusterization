@@ -1,7 +1,7 @@
 SOURCES += \
     main.cpp \
     custom_drawing.cpp \
-    framequeue.cpp \
+    # framequeue.cpp \
     extendedframe.cpp
 TEMPLATE = app
 CONFIG += console c++11
@@ -105,5 +105,5 @@ win32 {
 HEADERS += \
     custom_drawing.hpp \
     colors.hpp \
-    framequeue.h \
+   # framequeue.h \
     extendedframe.h

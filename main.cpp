@@ -10,7 +10,7 @@
 #include "colors.hpp"
 #include "custom_drawing.hpp"
 #include "extendedframe.h"
-#include "framequeue.h"
+//#include "framequeue.h"
 
 using namespace std;
 using namespace cv;
@@ -41,30 +41,49 @@ int main(int argc, char *argv[])
                 false, // использовать расширенный дескриптор
                 true); // не использовать вычисление ориентации);
 
-    FrameQueue localQ;
+    //FrameQueue localQ;
+    FlannBasedMatcher matcher;
 
-    localQ.setMaxFrames(5);
+    //localQ.setMaxFrames(5);
     //vector <KeyPoint> tmp_keypoints;
     //Mat tmp_descriptors;
     Mat current_frame;
-    extendedFrame current_ext_frame;
+    extendedFrame current_ext_frame, prev_ext_frame;
 
-    //while (srcVideo.read(current_frame))
-    for (int i = 0; i < 5; i++)
+    vector<extendedFrame> extframes;
+
+    srcVideo.read(prev_ext_frame.frame);
+    surf_detector_obj->detectAndCompute(prev_ext_frame.frame, Mat(), prev_ext_frame.frame_keypoints, prev_ext_frame.frame_descriptors);
+
+    while (srcVideo.read(current_ext_frame.frame))
+    //for (int i = 0; i < 5; i++)
     {
-        srcVideo.read(current_ext_frame.frame);
         surf_detector_obj->detectAndCompute(current_ext_frame.frame, Mat(), current_ext_frame.frame_keypoints, current_ext_frame.frame_descriptors);
-        localQ.queue.push_back(current_ext_frame);
+
+        vector< DMatch > matches;
+
+        matcher.match( prev_ext_frame.getDescriptors(), current_ext_frame.getDescriptors(), matches );
+        cout << matches.size() << endl;
+
+        prev_ext_frame = current_ext_frame;
+
+        //localQ.queue.push_back(current_ext_frame); // <-- localQ.push_back: добавить в конец вектора queue
+        // queue - public to private
 
     }
 
-    for (int i = 0; i <localQ.queue.size(); i++ )
+
+   /* for (int i = 1; i <extframes.size(); i++ )
     {
-        current_ext_frame = localQ.queue.at(i);
+
+        current_ext_frame = extframes.at(i);
+        prev_ext_frame = extframes.at(i-1);
+
         current_frame = current_ext_frame.getFrame();
+        cout << matches.size() << endl;
         imshow( "Preview window",  current_frame);
-        if ( cvWaitKey(10000)  == 27 )  break;
-    }
+        if ( cvWaitKey(33)  == 27 )  break;
+    }*/
 
 
     return 0;
