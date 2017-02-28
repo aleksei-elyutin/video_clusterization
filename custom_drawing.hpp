@@ -6,6 +6,7 @@
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
+#include "colors.hpp"
 
 using namespace std;
 using namespace cv;
@@ -37,6 +38,7 @@ public:
     /*
      * Генерирует цвет по названию из таблицы цветов в colors.hpp
     */
+    static int drawMatches(Mat &image, vector<KeyPoint> kps1, vector<KeyPoint> kps2, vector<DMatch> matches, Scalar color);
 };
 
 

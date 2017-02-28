@@ -15,6 +15,7 @@ extendedFrame::extendedFrame(Mat &input, vector<KeyPoint> &keypoints, Mat &descr
 }
 
 
+
 const Mat &extendedFrame::getFrame()
 {
     return frame;
