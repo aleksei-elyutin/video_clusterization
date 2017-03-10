@@ -18,6 +18,7 @@ using namespace cv;
 
 int goodFeaturesThresh ( vector<DMatch>& matches, vector<DMatch>& outputGoodMatches, float thresh);
 
+
 int main(int argc, char *argv[])
 {
     VideoCapture srcVideo;
@@ -31,6 +32,8 @@ int main(int argc, char *argv[])
     int32_t max_hessian_threshold = 5000, current_hessian_threshold = 2000, _threshold = 20, max__threshold = 100;
     createTrackbar( "Hessian threshold", "Preview window", &current_hessian_threshold, max_hessian_threshold);
     createTrackbar( "Threshold", "Preview window", &_threshold, max__threshold);
+    ButtonCallback buttonCallback;
+    createButton("Button", buttonCallback );
     /*****************************/
 
     Ptr<xfeatures2d::SURF> surf_detector_obj; //"умный" указатель на объект класса SURF

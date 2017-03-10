@@ -1,18 +1,13 @@
 #include "extendedframe.h"
 
-extendedFrame::extendedFrame()
-{
 
+
+extendedFrame::extendedFrame(Mat &input_frame, Ptr<xfeatures2d::SURF> &surf_detector_obj)
+{
+    frame = input_frame;
+    surf_detector_obj->detectAndCompute(frame, Mat(), frame_keypoints, frame_descriptors);
 }
 
-
-extendedFrame::extendedFrame(Mat &input, vector<KeyPoint> &keypoints, Mat &descriptors)
-{
-    frame = input;
-    frame_descriptors=descriptors;
-    frame_keypoints=keypoints;
-
-}
 
 
 

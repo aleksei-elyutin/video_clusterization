@@ -1,12 +1,12 @@
 SOURCES += \
     main.cpp \
     custom_drawing.cpp \
-    # framequeue.cpp \
+    framequeue.cpp \
     extendedframe.cpp
 TEMPLATE = app
 CONFIG += console c++11
 CONFIG -= app_bundle
-CONFIG -= qt
+CONFIG += qt
 
 
 win32: OS_SUFFIX = win32
@@ -105,5 +105,5 @@ win32 {
 HEADERS += \
     custom_drawing.hpp \
     colors.hpp \
-   # framequeue.h \
+    framequeue.h \
     extendedframe.h
