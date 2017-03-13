@@ -2,7 +2,8 @@ SOURCES += \
     main.cpp \
     custom_drawing.cpp \
     framequeue.cpp \
-    extendedframe.cpp
+    extendedframe.cpp \
+    customkeypoint.cpp
 TEMPLATE = app
 CONFIG += console c++11
 CONFIG -= app_bundle
@@ -106,4 +107,5 @@ HEADERS += \
     custom_drawing.hpp \
     colors.hpp \
     framequeue.h \
-    extendedframe.h
+    extendedframe.h \
+    customkeypoint.h

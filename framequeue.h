@@ -6,19 +6,41 @@
 #include <deque>
 #include <opencv2/videoio.hpp>
 
+/**
+ * @brief The FrameQueue class
+ *
+ * Класс, реализующий очередь расширенных кадров (extendedFrame).
+ */
 class FrameQueue
 {
 private:
 
 
+    /**
+     * @brief number_of_frames
+     *
+     * Текущее число кадров в очереди
+     */
+    uint32_t number_of_frames = 0;
 
-    uint32_t number_of_frames = 0; //Текущее число кадров в очереди
+    /**
+     * @brief max_frames
+     *
+     * Максимальное количество кадров в очереди
+     */
+    uint32_t max_frames = 5;
 
-    uint32_t max_frames = 5; // Максимальная длина очереди
+    /**
+     * @brief skip
+     *
+     * Число пропускаемых кадров
+     */
+    uint32_t skip = 0; //
 
-    uint32_t skip = 0; //Число пропускаемых кадров
-
-    VideoCapture &src_video_object; // Ссылка на источник видео
+    /**
+     * @brief src_video_object Ссылка на источник видео
+     */
+    VideoCapture &src_video_object;
 
     Ptr<xfeatures2d::SURF> &surf_detector_obj; // Ссылка на детектор
 
@@ -33,6 +55,9 @@ private:
      bool allow_back_step = 0; //Разрешение на передвижение очереди назад (будет реализовано позже)
 
     /* Итераторы */
+     /**
+     * @brief queue_iterator
+     */
     deque <extendedFrame>::iterator queue_iterator;
 
 

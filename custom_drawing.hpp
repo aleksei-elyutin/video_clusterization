@@ -13,31 +13,53 @@ using namespace cv;
 
 class customDraw {
 public:
+    /**
+     * @brief drawKeypointCircle Отрисовывает окружность с центром в точке, соответствующей координатам переданной особой точки.
+     * @param image[in]
+     * @param Kpoint[in]
+     * @param color[in]
+     * @return
+
+     */
     static int drawKeypointCircle (Mat& image, KeyPoint& Kpoint, Scalar color);
 
-    /*
-     * Отрисовывает окружность с центром в точке, соответствующей
-     * координатам переданной особой точки.
-     * TODO: добавить настройку отображения толщины и размера
-    */
+    /**
+     * @brief drawKeypointXmark  Отрисовывает X-метку с центром в точке, соответствующей координатам переданной особой точки.
+     * @param image
+     * @param Kpoint
+     * @param color
+     * @return
+     * @warning не реализован
+     */
     static int drawKeypointXmark (Mat& image, KeyPoint& Kpoint, Scalar color);
 
-    /*
-     * Отрисовывает X-метку с центром в точке, соответствующей
-     * координатам переданной особой точки.
-     * TODO: реализовать!
-    */
+    /**
+     * @brief drawLineBetweenKeypoints Рисует линию между двумя заданными особыми точками
+     * @param image
+     * @param Kpoint1
+     * @param Kpoint2
+     * @param color
+     * @return
+     * @warning TODO: добавить настройку отображения толщины и размера
+     */
     static int drawLineBetweenKeypoints (Mat& image, KeyPoint& Kpoint1, KeyPoint& Kpoint2, Scalar color);
 
-    /*
-     * Рисует линию между двумя заданными особыми точками
-     * TODO: добавить настройку отображения толщины и размера
-    */
-
+    /**
+     * @brief createColor Генерирует цвет по названию из таблицы цветов в colors.hpp
+     * @param color
+     * @return
+     */
     static Scalar createColor(uint32_t color);
-    /*
-     * Генерирует цвет по названию из таблицы цветов в colors.hpp
-    */
+
+    /**
+     * @brief drawMatches Рисует линию между особыми точками
+     * @param image
+     * @param kps1
+     * @param kps2
+     * @param matches
+     * @param color
+     * @return
+     */
     static int drawMatches(Mat &image, vector<KeyPoint> kps1, vector<KeyPoint> kps2, vector<DMatch> matches, Scalar color);
 };
 
