@@ -21,7 +21,10 @@ for i = 1 : 10%videoReader.NumberOfFrames
     
         indexPairs = matchFeatures(dsc,vertcat(feature_table.descriptor),'Method',...
              'NearestNeighborSymmetric') ;
-        feature_table.keypoint = validPoints(indexPairs(:, 1));
+        current_awakes = vertcat(feature_table(indexPairs(:, 2)).keypoint);
+        
+        
+        
         feature_table(i).descriptor = dsc(indexPairs(:, 1),:);            
         
         features(i-1).keypoint = features(i-1).keypoint(indexPairs(:, 2));

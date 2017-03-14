@@ -1,7 +1,7 @@
 SOURCES += \
-    main.cpp \
-    custom_drawing.cpp \
-    framequeue.cpp \
+    #main.cpp \
+    #custom_drawing.cpp \
+    #framequeue.cpp \
     extendedframe.cpp \
     customkeypoint.cpp
 TEMPLATE = app

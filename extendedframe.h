@@ -2,6 +2,7 @@
 #define EXTENDEDFRAME_H
 
 #include <vector>
+#include "customkeypoint.h"
 #include <opencv2/core.hpp>
 #include <opencv2/features2d.hpp>
 #include <opencv2/xfeatures2d.hpp>
@@ -21,10 +22,8 @@ public:
     Mat frame;
 
     /** @brief frame_keypoints Вектор особых точек текущего кадра */
-    vector <KeyPoint> frame_keypoints;
+    vector <customKeypoint> frame_keypoints;
 
-    /** @brief frame_descriptors Дескрипторы особых точек текущего кадра */
-    Mat frame_descriptors;
 
     /**
      * @brief extendedFrame Конструктор

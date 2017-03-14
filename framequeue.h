@@ -3,7 +3,9 @@
 
 
 #include "extendedframe.h"
+#include "customkeypoint.h"
 #include <deque>
+#include <list>
 #include <opencv2/videoio.hpp>
 
 /**
@@ -15,49 +17,28 @@ class FrameQueue
 {
 private:
 
+    uint32_t number_of_frames = 0; /// Текущее число кадров в очереди
 
-    /**
-     * @brief number_of_frames
-     *
-     * Текущее число кадров в очереди
-     */
-    uint32_t number_of_frames = 0;
+    uint32_t max_frames = 5; /// Максимальное количество кадров в очереди
 
-    /**
-     * @brief max_frames
-     *
-     * Максимальное количество кадров в очереди
-     */
-    uint32_t max_frames = 5;
+    uint32_t skip = 0; /// Число пропускаемых кадров
 
-    /**
-     * @brief skip
-     *
-     * Число пропускаемых кадров
-     */
-    uint32_t skip = 0; //
+    VideoCapture &src_video_object; /// Ссылка на источник видео
 
-    /**
-     * @brief src_video_object Ссылка на источник видео
-     */
-    VideoCapture &src_video_object;
+    Ptr<xfeatures2d::SURF> &surf_detector_obj; /// Ссылка на детектор
 
-    Ptr<xfeatures2d::SURF> &surf_detector_obj; // Ссылка на детектор
+    FlannBasedMatcher matcher; /// Объект-сопоставитель особых точек
 
-    FlannBasedMatcher matcher; // Объект-сопоставитель особых точек
+    deque <extendedFrame> main_queue; /// Основная очередь, содержащая исходные кадры и обнаруженные особенности
 
-    deque <extendedFrame> main_queue; // Основная очередь, содержащая исходные кадры и обнаруженные особенности
+    list <customKeypoint> table; /// Таблица кастомных ОТ
 
-    deque <vector <DMatch>>  matches_queue; // Очередь сопоставленных особенностей
-
+    deque <vector <DMatch>>  matches_queue; /// Очередь сопоставленных особенностей
 
 
      bool allow_back_step = 0; //Разрешение на передвижение очереди назад (будет реализовано позже)
 
     /* Итераторы */
-     /**
-     * @brief queue_iterator
-     */
     deque <extendedFrame>::iterator queue_iterator;
 
 
