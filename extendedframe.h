@@ -17,26 +17,38 @@ using namespace cv;
  */
 class extendedFrame
 {
-public:
-    /** @brief frame Исходное изображение */
-    Mat frame;
+    Mat frame; /// Исходное изображение
 
-    /** @brief frame_keypoints Вектор особых точек текущего кадра */
-    vector <customKeypoint> frame_keypoints;
+    vector <customKeypoint> frame_keypoints; /// Вектор особых точек текущего кадра
 
+    unsigned int frameNumber; /// Номер кадра
 
+public:  
     /**
      * @brief extendedFrame Конструктор
      * @param[in] input_frame Исходное изображение
      * @param[in] surf_detector_obj Ссылка на детектор
      */
-    extendedFrame(Mat &input_frame, Ptr<xfeatures2d::SURF> &surf_detector_obj);
+    extendedFrame(Mat &input_frame,
+                  vector <KeyPoint>& keypoints,
+                  Mat& descriptors,
+                  unsigned int number);
 
-    /* Геттеры: */
+    /**
+     * @brief splitCustomKeypoints - Разделить вектор кастомных ОТ на вектор <KeyPoint> и массив дескрипторов <Mat>
+     * @param[in] input_keypoints Входной вектор кастомных ОТ
+     * @param[out] output_keypoints Выходной вектор ОТ <KeyPoint>
+     * @param[out] output_descriptors Выходной массим дескрипторов
+     */
+    static void splitCustomKeypoints (vector<customKeypoint>& input_keypoints,
+                                      vector<KeyPoint>& output_keypoints,
+                                      Mat& output_descriptors
+                                      );
+
+
 
     const Mat &getFrame();
-    const Mat &getDescriptors();
-    const vector <KeyPoint> &getKeypointVector ();
+    unsigned int getNumber();
 };
 
 #endif // EXTENDEDFRAME_H

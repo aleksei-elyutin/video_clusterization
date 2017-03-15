@@ -4,7 +4,7 @@
 
 #include "extendedframe.h"
 #include "customkeypoint.h"
-#include <deque>
+#include <queue>
 #include <list>
 #include <opencv2/videoio.hpp>
 
@@ -17,7 +17,7 @@ class FrameQueue
 {
 private:
 
-    uint32_t number_of_frames = 0; /// Текущее число кадров в очереди
+    uint32_t number_of_frame = 0; /// Порядковый номер последнего полученного кадра
 
     uint32_t max_frames = 5; /// Максимальное количество кадров в очереди
 
@@ -29,36 +29,39 @@ private:
 
     FlannBasedMatcher matcher; /// Объект-сопоставитель особых точек
 
-    deque <extendedFrame> main_queue; /// Основная очередь, содержащая исходные кадры и обнаруженные особенности
+    queue <extendedFrame> main_queue; /// Основная очередь, содержащая исходные кадры и обнаруженные особенности
 
     list <customKeypoint> table; /// Таблица кастомных ОТ
 
-    deque <vector <DMatch>>  matches_queue; /// Очередь сопоставленных особенностей
-
-
-     bool allow_back_step = 0; //Разрешение на передвижение очереди назад (будет реализовано позже)
-
-    /* Итераторы */
-    deque <extendedFrame>::iterator queue_iterator;
 
 
 
-
-    int match (uint32_t nf1, uint32_t nf2, vector <DMatch> &matches);
-    void matchNew (); /* Сопоставляет --- */
-    void goodMatches(); /* ФИльтрация сопоставлений */
+//   int match (uint32_t nf1, uint32_t nf2, vector <DMatch> &matches);
+//    void matchNew (); /* Сопоставляет --- */
+//    void goodMatches(); /* ФИльтрация сопоставлений */
 
 
 public:  
-    /* Конструкторы */
-    FrameQueue(VideoCapture &src, uint32_t max_frames);
+    /**
+     * @brief FrameQueue Конструктор
+     * @param src Ссылка на источник видео
+     * @param max Длина очереди
+     * @param surf_ptr Ссылка на "умный указатель" объекта детектора
+     */
+    FrameQueue(VideoCapture &src, uint32_t max, Ptr<xfeatures2d::SURF> &surf_ptr);
 
 
     /* Публичные методы*/
 
-    void moveQueue();
-        /*Добавляет кадр в конец очереди.
-         Удаляет первый кадр из очереди, если очередь заполнена.*/
+    /**
+     * @brief moveQueue
+     * @param skip Число пропускаемых кадров
+     *
+     * Добавляет кадр в конец очереди.
+     * Удаляет первый кадр из очереди, если очередь заполнена.
+     */
+    void moveQueue(unsigned int skip);
+
 
 
 

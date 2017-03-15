@@ -2,40 +2,37 @@
 
 
 
-extendedFrame::extendedFrame(Mat &input_frame, Ptr<xfeatures2d::SURF> &surf_detector_obj)
+extendedFrame::extendedFrame(Mat &input_frame, vector <KeyPoint>& keypoints, Mat& descriptors, unsigned int number)
 {
     frame = input_frame;
+    frameNumber = number;
 
-    vector <KeyPoint> tmpKPs;
     vector <KeyPoint>::iterator tmpKPs_iterator;
-    Mat tmpDsc;
 
-    surf_detector_obj->detectAndCompute(frame, Mat(), tmpKPs, tmpDsc);
-
-    for ( tmpKPs_iterator = tmpKPs.begin(); tmpKPs_iterator < tmpKPs.end(); tmpKPs_iterator++)
+    for ( tmpKPs_iterator = keypoints.begin(), r = 0; tmpKPs_iterator < tmpKPs.end(); tmpKPs_iterator++, r++)
     {
-        frame_keypoints.push_back(customKeypoint(tmpKPs_iterator*, tmpDsc));
-
+        frame_keypoints.push_back(customKeypoint(tmpKPs_iterator*, descriptors.row(r)));
     }
 
-
-    frame_keypoints.push_back()
 }
 
+int r;
 
 
-
-const Mat &extendedFrame::getFrame()
+void extendedFrame::splitCustomKeypoints (vector<customKeypoint>& input_keypoints, vector<KeyPoint> &output_keypoints, Mat &output_descriptors)
 {
-    return frame;
+
+    vector<customKeypoint>::iterator ckp_iterator;
+    for ( ckp_iterator = input_keypoints->begin(); ckp_iterator < input_keypoints->end(); ckp_iterator++)
+    {
+        output_keypoints.push_back(ckp_iterator->getKeyPoint());
+        output_descriptors.push_back(ckp_iterator->getDescriptor());
+    }
+
 }
 
-const Mat &extendedFrame::getDescriptors()
+unsigned int extendedFrame::getNumber()
 {
-    return frame_descriptors;
+    return frameNumber;
 }
 
-const vector <KeyPoint> &extendedFrame::getKeypointVector ()
-{
-     return frame_keypoints;
-}

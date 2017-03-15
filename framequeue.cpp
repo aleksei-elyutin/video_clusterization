@@ -9,45 +9,49 @@ FrameQueue::FrameQueue(VideoCapture &src, uint32_t max, Ptr<xfeatures2d::SURF> &
 
     src_video_object = src;
 
-
 }
 
 
-void FrameQueue::moveQueue(uint32_t skip)
+void FrameQueue::moveQueue(unsigned int skip)
 {
+    //Локальные переменные
     Mat tmp_frame;
+    vector <KeyPoint> tmp_KPs;
+    Mat tmp_Dsc;
+
+    //пропуск кадров
     if (!skip)
     {
         while (skip--){
-          src_video_object.read(tmp);
-        } //пропуск кадров
+          src_video_object.read(tmp_frame);
+        }
     };
 
-    src_video_object.read(tmp);
+    src_video_object.read(tmp_frame);
+    surf_detector_obj->detectAndCompute(tmp_frame, Mat(), tmp_KPs, tmp_Dsc);
 
-    extendedFrame tmp_exframe(tmp_frame, surf_detector_obj); //Создание расширенного кадра
-
-    if (number_of_frames < max_frames)
+    // Создаем и пушим расширенный кадр
+    if (number_of_frame >= max_frames)
     {
-        queue.push_back(tmp_exframe);
-        number_of_frames++;
-    }
-    else
-    {
-        queue.pop_front();
-        queue.push_back(tmp_exframe);
-    }
-
-
-
+        main_queue.pop();
+    }     
+    main_queue.push( extendedFrame (tmp_frame,  tmp_KPs,  tmp_Dsc, number_of_frame++));
 }
 
 
-int FrameQueue::match(extendedFrame &f1, extendedFrame &f2, vector<DMatch> &matches)
-{
-   matcher.match (queue.back()->getDescriptors(), queue.back()->getDescriptors() );
+//int FrameQueue::match(extendedFrame &f1, extendedFrame &f2, vector<DMatch> &matches)
+//{
+//   matcher.match (queue.back()->getDescriptors(), queue.back()->getDescriptors() );
 
-}
+//   //////////////
+//   //////////////
+//   ////////////////////////////////////////////////////////////////////////////////////////////////
+//   ///////////////////////////////  ЛОПАТА              /////////////////////////////////////////////
+//   /////////////////////////////////////////////////////////////////////////////////////////////////
+//   ///////////////
+//   ///////////////
+
+//}
 
 int FrameQueue::setMaxFrames(uint32_t num)
 {
@@ -58,3 +62,4 @@ int FrameQueue::setMaxFrames(uint32_t num)
     else
         return -1;
 }
+

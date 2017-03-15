@@ -31,16 +31,7 @@ void customKeypoint::decWeight()
 
 }
 
-void customKeypoint::splitCustomKeypoint(vector<customKeypoint> input_keypoints, vector<KeyPoint> &output_keypoints, Mat &output_descriptors)
-{
-    vector<customKeypoint>::iterator ckp_iterator;
-    for ( ckp_iterator = input_keypoints.begin(); ckp_iterator < input_keypoints.end(); ckp_iterator++)
-    {
-        output_keypoints.push_back(ckp_iterator->getKeyPoint());
-        output_descriptors.push_back(ckp_iterator->getDescriptor());
-    }
 
-}
 
 
 customKeypoint::customKeypoint(KeyPoint &source_keypoint, Mat &source_descriptor)

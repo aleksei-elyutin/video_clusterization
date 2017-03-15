@@ -2,27 +2,28 @@
 inputVideoName = 'D:\108ANV01\MAQ09013.mp4';
 videoReader = VideoReader(inputVideoName);
 
-feature_table = struct('descriptor', [], 'keypoint', [], 'isAwake', []);
+keypoints_table = [];
+descriptors_table = [];
+active_table = [];
+keypoints = [];
+descriptors =[];
 
 
 
 for i = 1 : 10%videoReader.NumberOfFrames
     frame=rgb2gray(read(videoReader,i));
 %     imshow (rgb2gray(read(videoReader,i))); hold on; 
-    fps = detectSURFFeatures(frame,'MetricThreshold',1500);
-    [dsc, validPoints] = extractFeatures(frame, fps, 'SURFSize',64);
-    if i == 1
-        for j = 1:length(validPoints)
-            feature_table(j).keypoint = validPoints(j);
-            feature_table(j).descriptor = dsc(j,:);  
-            feature_table(j).isAwake = 1;
-        end;
+    keypoints = detectSURFFeatures(frame,'MetricThreshold',1500);
+    [descriptors, keypoints] = extractFeatures(frame, keypoints, 'SURFSize',64);
+    if i == 1  
+            keypoints_table = keypoints;
+            descriptors_table = descriptors;  
+            active_table = ones(length(keypoints),1);
     else
     
-        indexPairs = matchFeatures(dsc,vertcat(feature_table.descriptor),'Method',...
-             'NearestNeighborSymmetric') ;
-        feature_table.keypoint = validPoints(indexPairs(:, 1));
-        feature_table(i).descriptor = dsc(indexPairs(:, 1),:);            
+
+ 
+        descriptors_table = dsc(indexPairs(:, 1),:);            
         
         features(i-1).keypoint = features(i-1).keypoint(indexPairs(:, 2));
         features(i-1).descriptor = features(i-1).descriptor(indexPairs(:, 2),:);

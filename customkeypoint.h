@@ -23,25 +23,13 @@ class customKeypoint
 
     unsigned int weight = 0; /// "Вес" особой точки
 
-    unsigned int frameNumber; /// Номер кадра в очереди, к которому принадлежит особая точка
+
 
     void incWeight();
     void decWeight();
 
 public:
-    /**
-     * @brief splitCustomKeypoint - Разделить вектор кастомных ОТ на вектор <KeyPoint> и массив дескрипторов <Mat>
-     * @param[in] input_keypoints Входной вектор кастомных ОТ
-     * @param[out] output_keypoints Выходной вектор ОТ <KeyPoint>
-     * @param[out] output_descriptors Выходной массим дескрипторов
-     */
-    static void splitCustomKeypoint (vector<customKeypoint> input_keypoints,
-                                      vector<KeyPoint>& output_keypoints,
-                                      Mat& output_descriptors);
 
-    static void splitCustomKeypoint (list<customKeypoint> input_keypoints,
-                                      vector<KeyPoint>& output_keypoints,
-                                      Mat& output_descriptors);
     void putToSleep();
     void wake();
     bool isAwake();
