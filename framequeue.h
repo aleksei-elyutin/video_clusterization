@@ -27,18 +27,19 @@ private:
 
     Ptr<xfeatures2d::SURF> &surf_detector_obj; /// Ссылка на детектор
 
-    FlannBasedMatcher matcher; /// Объект-сопоставитель особых точек
+    FlannBasedMatcher matcher_obj; /// Объект-сопоставитель особых точек
 
     queue <extendedFrame> main_queue; /// Основная очередь, содержащая исходные кадры и обнаруженные особенности
 
-    list <customKeypoint> table; /// Таблица кастомных ОТ
+    vector <customKeypoint> table; /// Таблица кастомных ОТ
 
 
+    /**
+     * @brief matchTable Сопоставляет найденные точки с таблицей, заменяет текущие и добавляет новые
+     * @param newFrame
+     */
+    void matchTable (extendedFrame newFrame);
 
-
-//   int match (uint32_t nf1, uint32_t nf2, vector <DMatch> &matches);
-//    void matchNew (); /* Сопоставляет --- */
-//    void goodMatches(); /* ФИльтрация сопоставлений */
 
 
 public:  

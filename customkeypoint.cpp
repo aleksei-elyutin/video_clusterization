@@ -31,14 +31,19 @@ void customKeypoint::decWeight()
 
 }
 
+unsigned int extendedFrame::getNumber()
+{
+    return frameNumber;
+}
 
 
 
-customKeypoint::customKeypoint(KeyPoint &source_keypoint, Mat &source_descriptor)
+customKeypoint::customKeypoint(KeyPoint &source_keypoint, Mat &source_descriptor, int number)
 {
     keypoint = source_keypoint;
     descriptor = source_descriptor;
     wake();
     incWeight();
+    frameNumber = number;
 
 }

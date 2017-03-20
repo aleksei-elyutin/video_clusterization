@@ -104,8 +104,8 @@ win32 {
 }
 
 HEADERS += \
-    custom_drawing.hpp \
-    colors.hpp \
+   # custom_drawing.hpp \
+   # colors.hpp \
     framequeue.h \
     extendedframe.h \
     customkeypoint.h

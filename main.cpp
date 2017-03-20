@@ -45,61 +45,14 @@ int main(int argc, char *argv[])
                 false, // использовать расширенный дескриптор
                 true); // не использовать вычисление ориентации);
 
-    //FrameQueue localQ;
-    FlannBasedMatcher matcher;
-
-    //localQ.setMaxFrames(5);
-    //vector <KeyPoint> tmp_keypoints;
-    //Mat tmp_descriptors;
-    Mat current_frame;
-    extendedFrame current_ext_frame, prev_ext_frame;
-
-    vector<extendedFrame> extframes;
-
-    srcVideo.read(prev_ext_frame.frame);
-    surf_detector_obj->detectAndCompute(prev_ext_frame.frame, Mat(), prev_ext_frame.frame_keypoints, prev_ext_frame.frame_descriptors);
 
     vector< DMatch > matches;
     vector< DMatch > good_matches;
 
     float maxDistance = 0.1;
     while (srcVideo.read(current_ext_frame.frame))
-    //for (int i = 0; i < 5; i++)
     {
-        surf_detector_obj->setHessianThreshold( current_hessian_threshold ); //установка значения порога гессиана
-        surf_detector_obj->detectAndCompute(current_ext_frame.frame, Mat(), current_ext_frame.frame_keypoints, current_ext_frame.frame_descriptors);
-
-
-
-        matcher.match( prev_ext_frame.getDescriptors(), current_ext_frame.getDescriptors(), matches);
-
-        good_matches.clear();
-        cout << goodFeaturesThresh(matches, good_matches, ((float)_threshold)/(float)max__threshold) << endl;
-
-
-
-        current_frame = current_ext_frame.getFrame().clone();
-        //customDraw::drawMatches(current_frame, prev_ext_frame.getKeypointVector(), current_ext_frame.getKeypointVector(), matches, customDraw::createColor(custom_colors::COLOR_Red));
-        customDraw::drawMatches(current_frame, prev_ext_frame.getKeypointVector(), current_ext_frame.getKeypointVector(), good_matches, customDraw::createColor(custom_colors::COLOR_Green));
-        imshow( "Preview window",  current_frame);
-        if ( cvWaitKey(33)  == 27 )  break;
-
-         prev_ext_frame = current_ext_frame;
-
     }
-
-
-   /* for (int i = 1; i <extframes.size(); i++ )
-    {
-
-        current_ext_frame = extframes.at(i);
-        prev_ext_frame = extframes.at(i-1);
-
-        current_frame = current_ext_frame.getFrame();
-        cout << matches.size() << endl;
-        imshow( "Preview window",  current_frame);
-        if ( cvWaitKey(33)  == 27 )  break;
-    }*/
 
 
     return 0;

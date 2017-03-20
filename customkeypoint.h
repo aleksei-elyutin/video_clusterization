@@ -19,6 +19,8 @@ class customKeypoint
 
     Mat descriptor; /// Дескриптор точки
 
+    int frameNumber; ///Номер кадра, которому принадлежит точка
+
     bool awake = false; ///Индикатор активности точки в текущий момент
 
     unsigned int weight = 0; /// "Вес" особой точки
@@ -39,6 +41,13 @@ public:
      * @brief getKeyPoint - Возвращает ОТ
      * @return KeyPoint ОТ
      */
+
+    unsigned int getNumber();
+    /**
+     * @brief getNumber - Возвращает номер кадра
+     * @return KeyPoint ОТ
+     */
+
     const KeyPoint getKeyPoint();
     /**
      * @brief getDescriptor - Возвращает дескриптор
@@ -51,7 +60,7 @@ public:
      * @param source_keypoint
      * @param source_descriptor
      */
-    customKeypoint(KeyPoint& source_keypoint, Mat& source_descriptor);
+    customKeypoint(KeyPoint& source_keypoint, Mat& source_descriptor, int number);
 
 };
 

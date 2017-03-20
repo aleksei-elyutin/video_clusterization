@@ -38,12 +38,19 @@ public:
      * @brief splitCustomKeypoints - Разделить вектор кастомных ОТ на вектор <KeyPoint> и массив дескрипторов <Mat>
      * @param[in] input_keypoints Входной вектор кастомных ОТ
      * @param[out] output_keypoints Выходной вектор ОТ <KeyPoint>
-     * @param[out] output_descriptors Выходной массим дескрипторов
+     * @param[out] output_descriptors Выходной массив дескрипторов
      */
     static void splitCustomKeypoints (vector<customKeypoint>& input_keypoints,
                                       vector<KeyPoint>& output_keypoints,
                                       Mat& output_descriptors
                                       );
+    /**
+     * @brief split - Разделить расширенный кадр на вектор <KeyPoint> и массив дескрипторов <Mat>
+     * @param[out] output_keypoints Выходной вектор ОТ <KeyPoint>
+     * @param[out] output_descriptors Выходной массив дескрипторов
+     */
+    void split (vector<KeyPoint> &output_keypoints,
+                               Mat &output_descriptors);
 
 
 
