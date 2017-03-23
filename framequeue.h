@@ -40,6 +40,13 @@ private:
      */
     void matchTable (extendedFrame newFrame);
 
+    /**
+     * @brief cleanTable Очистить таблицу от "старых особых точек"
+     */
+    void cleanTable ();
+    
+  
+
 
 
 public:  

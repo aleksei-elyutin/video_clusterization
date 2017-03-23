@@ -40,6 +40,7 @@ void FrameQueue::moveQueue(unsigned int skip)
     main_queue.push( extendedFrame (tmp_frame,  tmp_KPs,  tmp_Dsc, number_of_frame++));
 
     matchTable(main_queue.back());
+    
 }
 
 void FrameQueue::matchTable(extendedFrame newFrame)
@@ -81,6 +82,17 @@ void FrameQueue::matchTable(extendedFrame newFrame)
         table.push_back(swap.at(i));
     }
 
+}
+
+void FrameQueue::cleanTable()
+{
+    vector<customKeypoint>::iterator table_iterator;
+    for ( table_iterator = table.begin(); table_iterator < table.end(); table_iterator++)
+    {
+        if( table_iterator->getNumber() <=  (number_of_frame - max_frames))
+            table.erase(table_iterator);
+    }
+    
 }
 
 
